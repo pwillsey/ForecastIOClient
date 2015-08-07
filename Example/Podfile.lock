@@ -1,0 +1,14 @@
+PODS:
+  - ForecastIOClient (0.1.0)
+
+DEPENDENCIES:
+  - ForecastIOClient (from `../`)
+
+EXTERNAL SOURCES:
+  ForecastIOClient:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ForecastIOClient: 3379323d746186703ae5ad056466f85ca1a386ba
+
+COCOAPODS: 0.38.2
