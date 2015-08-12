@@ -14,7 +14,7 @@ public struct ForecastIO {
     public var latitude: Double
     public var longitude: Double
     public var timezone: String
-    public var offset: String
+    public var offset: Int
     public var currently: DataPoint
     public var minutely: DataBlock
     public var hourly: DataBlock
@@ -26,7 +26,7 @@ public struct ForecastIO {
         latitude = json["latitude"].doubleValue
         longitude = json["longitude"].doubleValue
         timezone = json["timezone"].stringValue
-        offset = json["offset"].stringValue
+        offset = json["offset"].intValue
         currently = DataPoint(json: json["currently"])
         minutely = DataBlock(json: json["minutely"])
         hourly = DataBlock(json: json["hourly"])
@@ -100,7 +100,7 @@ public struct DataPoint {
         humidity = json["humidity"].doubleValue
         pressure = json["pressure"].doubleValue
         visibility = json["visibility"].doubleValue
-        ozone = json["visibility"].doubleValue
+        ozone = json["ozone"].doubleValue
     }
 }
 
@@ -206,7 +206,10 @@ public class ForecastIOClient {
     private static let baseURL: String = "https://api.forecast.io"
     private static let sessionManager: AFHTTPSessionManager = AFHTTPSessionManager(baseURL: NSURL(string: baseURL))
     
-    public func currentForecast(latitude: Double, longitude: Double, extendHourly: Bool? = nil, exclude: [ForecastIOBlocks]? = nil, failure: ((error: NSError) -> Void)? = nil, success: ((forecast: ForecastIO) -> Void)? = nil) {
+    public typealias SuccessClosure = (forecast: ForecastIO) -> Void
+    public typealias FailureClosure = (error: NSError) -> Void
+    
+    public func currentForecast(latitude: Double, longitude: Double, extendHourly: Bool? = nil, exclude: [ForecastIOBlocks]? = nil, failure: FailureClosure? = nil, success: SuccessClosure? = nil) {
         if ForecastIOClient.apiKey == nil {
             fatalError("Forecast.IO APIKey not set!")
         }

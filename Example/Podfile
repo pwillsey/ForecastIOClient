@@ -7,6 +7,5 @@ end
 
 target 'ForecastIOClient_Tests', :exclusive => true do
   pod "ForecastIOClient", :path => "../"
-
-  
+  pod "Nimble"
 end
