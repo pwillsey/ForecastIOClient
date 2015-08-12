@@ -75,6 +75,29 @@ class ForecastIOClientTests: XCTestCase {
                     ],
                 ]
             ],
+            "daily":[
+                "summary":"Mostly cloudy until tomorrow evening.",
+                "icon":"partly-cloudy-day",
+                "data":[
+                    [
+                        "time":1438743600,
+                        "summary":"Partly Cloudy",
+                        "icon":"partly-cloudy-day",
+                        "precipIntensity":0,
+                        "precipProbability":0,
+                        "temperature":64.99,
+                        "apparentTemperature":64.99,
+                        "dewPoint":55.11,
+                        "humidity":0.7,
+                        "windSpeed":9.6,
+                        "windBearing":267,
+                        "visibility":9.12,
+                        "cloudCover":0.4,
+                        "pressure":1015.38,
+                        "ozone":324.07
+                    ],
+                ]
+            ],
             "flags":[
                 "sources":[
                     "darksky"
@@ -102,6 +125,7 @@ class ForecastIOClientTests: XCTestCase {
         expect(self.dataPointValid(forecast.currently)).to(beTruthy())
         expect(self.dataBlockValid(forecast.minutely)).to(beTruthy())
         expect(self.dataBlockValid(forecast.hourly)).to(beTruthy())
+        expect(self.dataBlockValid(forecast.daily)).to(beTruthy())
         expect(self.flagsValid(forecast.flags)).to(beTruthy())
         // TODO: Add in alerts
     }
