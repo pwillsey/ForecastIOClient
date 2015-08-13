@@ -182,6 +182,7 @@ public enum ForecastIOUnits: String {
     case ca = "ca"
     case uk = "uk"
     case uk2 = "uk2"
+    case auto = "auto"
 }
 
 public enum ForecastIOBlocks: String, Printable {
@@ -209,7 +210,13 @@ public class ForecastIOClient {
     public typealias SuccessClosure = (forecast: ForecastIO) -> Void
     public typealias FailureClosure = (error: NSError) -> Void
     
-    public func currentForecast(latitude: Double, longitude: Double, extendHourly: Bool? = nil, exclude: [ForecastIOBlocks]? = nil, failure: FailureClosure? = nil, success: SuccessClosure? = nil) {
+    private let dateFormatter: NSDateFormatter = NSDateFormatter()
+    
+    public init() {
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+    }
+    
+    public func currentForecast(latitude: Double, longitude: Double, time: NSDate? = nil, extendHourly: Bool? = nil, exclude: [ForecastIOBlocks]? = nil, failure: FailureClosure? = nil, success: SuccessClosure? = nil) {
         if ForecastIOClient.apiKey == nil {
             fatalError("Forecast.IO APIKey not set!")
         }
@@ -232,7 +239,15 @@ public class ForecastIOClient {
             parameters["exclude"] = excludeString
         }
         
-        let path: String = "/forecast/\(ForecastIOClient.apiKey!)/\(latitude),\(longitude)"
+        var path: String = "/forecast/\(ForecastIOClient.apiKey!)/\(latitude),\(longitude)"
+        
+        if (time != nil) {
+            var dateString: String = dateFormatter.stringFromDate(time!)
+            var dateComponents: [String] = dateString.componentsSeparatedByString(" ")
+            if (dateComponents.count == 2) {
+                path += "," + dateComponents.first! + "T" + dateComponents.last!
+            }
+        }
         
         println("\(path)")
         
