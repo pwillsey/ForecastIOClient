@@ -1,3 +1,29 @@
+//
+//  ForecastIOClientTests.swift
+//  8BitWeather
+//
+//  Created by Peter Willsey on 8/11/15.
+//  Copyright (c) 2015 Peter Willsey
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import UIKit
 import XCTest
 import ForecastIOClient
@@ -115,14 +141,14 @@ class ForecastIOClientTests: XCTestCase {
             ]
         ]
         
-        let forecast: ForecastIO = ForecastIO(json: forecastJson)
+        let forecast: Forecast = Forecast(json: forecastJson)
         
         expect(forecast.latitude).to(equal(37.8267))
         expect(forecast.longitude).to(equal(-122.423))
         expect(forecast.timezone).to(equal("America/Los_Angeles"))
         expect(forecast.offset).to(equal(-7))
         
-        expect(self.dataPointValid(forecast.currently)).to(beTruthy())
+        expect(self.dataPointValid(forecast.currently!)).to(beTruthy())
         expect(self.dataBlockValid(forecast.minutely)).to(beTruthy())
         expect(self.dataBlockValid(forecast.hourly)).to(beTruthy())
         expect(self.dataBlockValid(forecast.daily)).to(beTruthy())
@@ -176,7 +202,7 @@ class ForecastIOClientTests: XCTestCase {
         expect(currently.nearestStormDistance).to(equal(1))
         expect(currently.nearestStormBearing).to(equal(119))
         expect(currently.precipProbability).to(equal(0.1))
-        expect(currently.precipType).to(equal("rain"))
+        expect(currently.precipType).to(equal(PrecipitationType.Rain))
         expect(currently.precipAccumulation).to(equal(1.0))
         expect(currently.temperature).to(equal(64.71))
         expect(currently.temperatureMin).to(equal(64.71))
@@ -220,7 +246,7 @@ class ForecastIOClientTests: XCTestCase {
         
         expect(minutely.summary).to(equal("Partly cloudy for the hour."))
         expect(minutely.icon).to(equal("partly-cloudy-day"))
-        expect(minutely.data.count).to(equal(2))
+        expect(minutely.data?.count).to(equal(2))
     }
     
     func testAlertStuct() {
@@ -267,34 +293,34 @@ class ForecastIOClientTests: XCTestCase {
         
         let flags: Flags = Flags(json: flagsJson)
         
-        expect(flags.sources.count).to(equal(5))
-        expect(flags.sources[4]).to(equal("darksky"))
+        expect(flags.sources?.count).to(equal(5))
+        expect(flags.sources?[4]).to(equal("darksky"))
         
-        expect(flags.isdStations.count).to(equal(2))
-        expect(flags.isdStations[1]).to(equal("999999-23272"))
+        expect(flags.isdStations?.count).to(equal(2))
+        expect(flags.isdStations?[1]).to(equal("999999-23272"))
         
-        expect(flags.lampStations.count).to(equal(4))
-        expect(flags.lampStations[0]).to(equal("KAPC"))
+        expect(flags.lampStations?.count).to(equal(4))
+        expect(flags.lampStations?[0]).to(equal("KAPC"))
         
-        expect(flags.darkskyStations.count).to(equal(2))
-        expect(flags.darkskyStations[1]).to(equal("KDAX"))
+        expect(flags.darkskyStations?.count).to(equal(2))
+        expect(flags.darkskyStations?[1]).to(equal("KDAX"))
         
-        expect(flags.units).to(equal(ForecastIOUnits.ca))
+        expect(flags.units).to(equal(Units.Ca))
     }
     
-    private func dataBlockValid(dataBlock: DataBlock) -> Bool {
-        return dataBlock.summary != "" || dataBlock.icon != "" || dataBlock.data.count > 0
+    private func dataBlockValid(dataBlock: DataBlock?) -> Bool {
+        return dataBlock?.summary != nil || dataBlock?.icon != nil || dataBlock?.data != nil
     }
     
-    private func dataPointValid(dataPoint: DataPoint) -> Bool {
-        return dataPoint.time > 0 || dataPoint.summary != "" || dataPoint.icon != "" || dataPoint.sunriseTime > 0 || dataPoint.sunsetTime > 0 || dataPoint.moonPhase > 0 || dataPoint.nearestStormDistance > 0 || dataPoint.nearestStormBearing > 0 || dataPoint.precipProbability > 0 || dataPoint.precipType != "" || dataPoint.precipAccumulation > 0 || dataPoint.temperature > 0 || dataPoint.temperatureMin > 0 || dataPoint.temperatureMinTime > 0 || dataPoint.temperatureMax > 0 || dataPoint.temperatureMaxTime > 0 || dataPoint.apparentTemperature > 0 || dataPoint.apparentTemperatureMin > 0 || dataPoint.apparentTemperatureMinTime > 0 || dataPoint.apparentTemperatureMax > 0 || dataPoint.apparentTemperatureMaxTime > 0 || dataPoint.dewPoint > 0 || dataPoint.windSpeed > 0 || dataPoint.windBearing > 0 || dataPoint.cloudCover > 0 || dataPoint.humidity > 0 || dataPoint.pressure > 0 || dataPoint.visibility > 0 || dataPoint.ozone > 0
+    private func dataPointValid(dataPoint: DataPoint?) -> Bool {
+        return dataPoint?.time > 0 || dataPoint?.summary != nil || dataPoint?.icon != nil || dataPoint?.sunriseTime != nil || dataPoint?.sunsetTime != nil || dataPoint?.moonPhase != nil || dataPoint?.nearestStormDistance != nil || dataPoint?.nearestStormBearing != nil || dataPoint?.precipProbability != nil || dataPoint?.precipType != nil || dataPoint?.precipAccumulation != nil || dataPoint?.temperature != nil || dataPoint?.temperatureMin != nil || dataPoint?.temperatureMinTime != nil || dataPoint?.temperatureMax != nil || dataPoint?.temperatureMaxTime != nil || dataPoint?.apparentTemperature != nil || dataPoint?.apparentTemperatureMin != nil || dataPoint?.apparentTemperatureMinTime != nil || dataPoint?.apparentTemperatureMax != nil || dataPoint?.apparentTemperatureMaxTime != nil || dataPoint?.dewPoint != nil || dataPoint?.windSpeed != nil || dataPoint?.windBearing != nil || dataPoint?.cloudCover != nil || dataPoint?.humidity != nil || dataPoint?.pressure != nil || dataPoint?.visibility != nil || dataPoint?.ozone != nil
     }
     
     private func alertValid(alert: Alert) -> Bool {
         return alert.title != "" || alert.expires != 0 || alert.description != "" || alert.uri != ""
     }
     
-    private func flagsValid(flags: Flags) -> Bool {
-        return flags.sources.count > 0 || flags.isdStations.count > 0 || flags.lampStations.count > 0 || flags.darkskyStations.count > 0 || flags.darkskyUnavailable != nil || flags.metnoLicense != "" || flags.metarStations.count > 0 || flags.units != ForecastIOUnits.us
+    private func flagsValid(flags: Flags?) -> Bool {
+        return flags?.sources != nil || flags?.isdStations != nil || flags?.lampStations != nil || flags?.darkskyStations != nil || flags?.darkskyUnavailable != nil || flags?.metnoLicense != nil || flags?.metarStations != nil || flags?.units != nil
     }
 }
