@@ -273,6 +273,17 @@ public class ForecastIOClient {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
     }
     
+    /**
+        Retrieve a forecast from the present, past or future
+    
+        :param: latitude        The latitude of the forecast
+        :param: longitude       The longitude of the forecast
+        :param: time            The time for the forecast, can be in the past or future, no time returns the present
+        :param: extendHourly    Return hourly data for the next seven days instead of the next two
+        :param: exclude         An array of data blocks to exclude in the response
+        :param: failure         Closure called when the request fails
+        :param: success         Closure called when the request succeeds
+    */
     public func forecast(latitude: Double, longitude: Double, time: NSDate? = nil, extendHourly: Bool? = nil, exclude: [ForecastBlocks]? = nil, failure: FailureClosure? = nil, success: SuccessClosure? = nil) {
         if ForecastIOClient.apiKey == nil {
             fatalError("Forecast.IO APIKey not set!")
