@@ -226,6 +226,16 @@ public struct Flags {
     }
 }
 
+/**
+    Units which a forecast's values can be returned in.
+
+    - Us: Imperial units.
+    - Si: Metric units.
+    - Ca: Metric units with wind speed in KM/H.
+    - Uk: (Deprecated) metric units with wind speed in MPH.
+    - Uk2: Metric units with wind speed in MPH and nearest storm distance and visibility in miles.
+    - Auto: Units selected automatically based on location.
+*/
 public enum Units: String {
     case Us = "us"
     case Si = "si"
@@ -254,11 +264,19 @@ public enum ForecastBlocks: String, Printable {
         return self.rawValue
     }
 }
-
+/**
+    A singleton that retrieves forecasts from forecast.io
+*/
 public class ForecastIOClient {
     public static let sharedInstance: ForecastIOClient = ForecastIOClient()
+    
+    /// The forecast.io API key to use.
     public static var apiKey: String?
+    
+    /// The units that will be returned in forecasts.
     public static var units: Units = .Us
+    
+    /// The language to return forecasts in.
     public static var lang: String = "en"
     
     private static let baseURL: String = "https://api.forecast.io"
@@ -274,15 +292,15 @@ public class ForecastIOClient {
     }
     
     /**
-        Retrieve a forecast from the present, past or future
+        Retrieve a forecast from the present, past or future.
     
-        :param: latitude        The latitude of the forecast
-        :param: longitude       The longitude of the forecast
-        :param: time            The time for the forecast, can be in the past or future, no time returns the present
-        :param: extendHourly    Return hourly data for the next seven days instead of the next two
-        :param: exclude         An array of data blocks to exclude in the response
-        :param: failure         Closure called when the request fails
-        :param: success         Closure called when the request succeeds
+        :param: latitude        The latitude of the forecast.
+        :param: longitude       The longitude of the forecast.
+        :param: time            The time for the forecast, can be in the past or future, no time returns the present.
+        :param: extendHourly    Return hourly data for the next seven days instead of the next two.
+        :param: exclude         An array of data blocks to exclude in the response.
+        :param: failure         Closure called when the request fails.
+        :param: success         Closure called when the request succeeds.
     */
     public func forecast(latitude: Double, longitude: Double, time: NSDate? = nil, extendHourly: Bool? = nil, exclude: [ForecastBlocks]? = nil, failure: FailureClosure? = nil, success: SuccessClosure? = nil) {
         if ForecastIOClient.apiKey == nil {
