@@ -287,7 +287,7 @@ public class ForecastIOClient {
     
     private let dateFormatter: NSDateFormatter = NSDateFormatter()
     
-    public init() {
+    private init() {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
     }
     
