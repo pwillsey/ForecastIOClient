@@ -40,6 +40,30 @@ public struct Forecast {
     public var alerts: [Alert]?
     public var flags: Flags?
     
+    public init(
+        latitude: Double,
+        longitude: Double,
+        timezone: String,
+        offset: Int? = nil,
+        currently: DataPoint? = nil,
+        minutely: DataBlock? = nil,
+        hourly: DataBlock? = nil,
+        daily: DataBlock? = nil,
+        alerts: [Alert]? = nil,
+        flags: Flags? = nil
+        ) {
+            self.latitude = latitude
+            self.longitude = longitude
+            self.timezone = timezone
+            self.offset = offset
+            self.currently = currently
+            self.minutely = minutely
+            self.hourly = hourly
+            self.daily = daily
+            self.alerts = alerts
+            self.flags = flags
+    }
+    
     public init(json: JSON) {
         latitude = json["latitude"].doubleValue
         longitude = json["longitude"].doubleValue
@@ -103,6 +127,68 @@ public struct DataPoint {
     public var visibility: Double?
     public var ozone: Double?
     
+    public init(
+        time: Int,
+        summary: String? = nil,
+        icon: String? = nil,
+        sunriseTime: Int? = nil,
+        sunsetTime: Int? = nil,
+        moonPhase: Double? = nil,
+        nearestStormDistance: Double? = nil,
+        nearestStormBearing: Double? = nil,
+        precipProbability: Double? = nil,
+        precipType: PrecipitationType? = nil,
+        precipAccumulation: Double? = nil,
+        temperature: Double? = nil,
+        temperatureMin: Double? = nil,
+        temperatureMinTime: Int? = nil,
+        temperatureMax: Double? = nil,
+        temperatureMaxTime: Double? = nil,
+        apparentTemperature: Double? = nil,
+        apparentTemperatureMin: Double? = nil,
+        apparentTemperatureMinTime: Int? = nil,
+        apparentTemperatureMax: Double? = nil,
+        apparentTemperatureMaxTime: Int? = nil,
+        dewPoint: Double? = nil,
+        windSpeed: Double? = nil,
+        windBearing: Double? = nil,
+        cloudCover: Double? = nil,
+        humidity: Double? = nil,
+        pressure: Double? = nil,
+        visibility: Double? = nil,
+        ozone: Double? = nil
+        ) {
+            self.time = time
+            self.summary = summary
+            self.icon = icon
+            self.sunriseTime = sunriseTime
+            self.sunsetTime = sunsetTime
+            self.moonPhase = moonPhase
+            self.nearestStormDistance = nearestStormDistance
+            self.nearestStormBearing = nearestStormBearing
+            self.precipProbability = precipProbability
+            self.precipType = precipType
+            self.precipAccumulation = precipAccumulation
+            self.temperature = temperature
+            self.temperatureMin = temperatureMin
+            self.temperatureMinTime = temperatureMinTime
+            self.temperatureMax = temperatureMax
+            self.temperatureMaxTime = temperatureMaxTime
+            self.apparentTemperature = apparentTemperature
+            self.apparentTemperatureMin = apparentTemperatureMin
+            self.apparentTemperatureMinTime = apparentTemperatureMinTime
+            self.apparentTemperatureMax = apparentTemperatureMax
+            self.apparentTemperatureMaxTime = apparentTemperatureMaxTime
+            self.dewPoint = dewPoint
+            self.windSpeed = windSpeed
+            self.windBearing = windBearing
+            self.cloudCover = cloudCover
+            self.humidity = humidity
+            self.pressure = pressure
+            self.visibility = visibility
+            self.ozone = ozone
+    }
+    
     public init(json: JSON) {
         time = json["time"].intValue
         summary = json["summary"].string
@@ -141,6 +227,16 @@ public struct DataBlock {
     public var icon: String?
     public var data: [DataPoint]?
     
+    public init(
+        summary: String? = nil,
+        icon: String? = nil,
+        data: [DataPoint]? = nil
+        ) {
+            self.summary = summary
+            self.icon = icon
+            self.data = data
+    }
+    
     public init(json: JSON) {
         summary = json["summary"].string
         icon = json["icon"].string
@@ -160,6 +256,18 @@ public struct Alert {
     public var description: String
     public var uri: String
     
+    public init(
+        title: String,
+        expires: Int,
+        description: String,
+        uri: String
+        ) {
+            self.title = title
+            self.expires = expires
+            self.description = description
+            self.uri = uri
+    }
+    
     public init(json: JSON) {
         title = json["title"].stringValue
         expires = json["expires"].intValue
@@ -178,6 +286,28 @@ public struct Flags {
     public var metnoLicense: String?
     public var sources: [String]?
     public var units: Units?
+    
+    public init(
+        darkskyUnavailable: String? = nil,
+        darkskyStations: [String]? = nil,
+        dataPointStations: [String]? = nil,
+        isdStations: [String]? = nil,
+        lampStations: [String]? = nil,
+        metarStations: [String]? = nil,
+        metnoLicense: String? = nil,
+        sources: [String]? = nil,
+        units: Units? = nil
+        ) {
+            self.darkskyUnavailable = darkskyUnavailable
+            self.darkskyStations = darkskyStations
+            self.dataPointStations = dataPointStations
+            self.isdStations = isdStations
+            self.lampStations = lampStations
+            self.metarStations = metarStations
+            self.metnoLicense = metnoLicense
+            self.sources = sources
+            self.units = units
+    }
     
     public init(json: JSON) {
         darkskyUnavailable = json["darksky-unavailable"].string
@@ -264,6 +394,7 @@ public enum ForecastBlocks: String, Printable {
         return self.rawValue
     }
 }
+
 /**
     A singleton that retrieves forecasts from forecast.io
 */
