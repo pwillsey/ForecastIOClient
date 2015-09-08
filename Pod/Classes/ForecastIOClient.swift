@@ -1,6 +1,6 @@
 //
 //  ForecastIOClient.swift
-//  8BitWeather
+//  ForecastIOClient
 //
 //  Created by Peter Willsey on 8/5/15.
 //  Copyright (c) 2015 Peter Willsey
@@ -27,6 +27,23 @@
 import Foundation
 import AFNetworking
 import SwiftyJSON
+
+private func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
+    switch (lhs, rhs) {
+    case (.Some(let lhs), .Some(let rhs)):
+        return lhs == rhs
+    case (.None, .None):
+        return true
+    default:
+        return false
+    }
+}
+
+extension Forecast : Equatable {}
+
+public func ==(lhs: Forecast, rhs: Forecast) -> Bool {
+    return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude && lhs.timezone == rhs.timezone && lhs.offset == rhs.offset && lhs.currently == rhs.currently && lhs.minutely == rhs.minutely && lhs.hourly == rhs.hourly && lhs.daily == rhs.daily && lhs.flags == rhs.flags && rhs.alerts == lhs.alerts
+}
 
 public struct Forecast {
     public var latitude: Double
@@ -94,6 +111,12 @@ public struct Forecast {
             flags = Flags(json: json["flags"])
         }
     }
+}
+
+extension DataPoint : Equatable {}
+
+public func ==(lhs: DataPoint, rhs: DataPoint) -> Bool {
+    return lhs.time == rhs.time && lhs.summary == rhs.summary && lhs.icon == rhs.icon && lhs.sunriseTime == rhs.sunriseTime && lhs.sunsetTime == rhs.sunsetTime && lhs.moonPhase == rhs.moonPhase && lhs.nearestStormDistance == rhs.nearestStormDistance && lhs.nearestStormBearing == rhs.nearestStormBearing && lhs.precipProbability == rhs.precipProbability && lhs.precipType == rhs.precipType && lhs.precipAccumulation == rhs.precipAccumulation && lhs.temperature == rhs.temperature && lhs.temperatureMin == rhs.temperatureMin && lhs.temperatureMinTime == rhs.temperatureMinTime && lhs.temperatureMax == rhs.temperatureMax && lhs.temperatureMaxTime == rhs.temperatureMaxTime && lhs.apparentTemperature == rhs.apparentTemperature && lhs.apparentTemperatureMin == rhs.apparentTemperatureMin && lhs.apparentTemperatureMinTime == rhs.apparentTemperatureMinTime && lhs.apparentTemperatureMax == rhs.apparentTemperatureMax && lhs.apparentTemperatureMaxTime == rhs.apparentTemperatureMaxTime && lhs.dewPoint == rhs.dewPoint && lhs.windSpeed == rhs.windSpeed && lhs.windBearing == rhs.windBearing && lhs.cloudCover == rhs.cloudCover && lhs.humidity == rhs.humidity && lhs.pressure == rhs.pressure && lhs.visibility == rhs.visibility && lhs.ozone == rhs.ozone
 }
 
 public struct DataPoint {
@@ -222,6 +245,12 @@ public struct DataPoint {
     }
 }
 
+extension DataBlock: Equatable {}
+
+public func ==(lhs: DataBlock, rhs: DataBlock) -> Bool {
+    return lhs.summary == rhs.summary && lhs.icon == rhs.icon && lhs.data == rhs.data
+}
+
 public struct DataBlock {
     public var summary: String?
     public var icon: String?
@@ -250,6 +279,12 @@ public struct DataBlock {
     }
 }
 
+extension Alert: Equatable {}
+
+public func ==(lhs: Alert, rhs: Alert) -> Bool {
+    return lhs.title == rhs.title && lhs.expires == rhs.expires && lhs.description == rhs.description && lhs.uri == rhs.uri
+}
+
 public struct Alert {
     public var title: String
     public var expires: Int
@@ -274,6 +309,12 @@ public struct Alert {
         description = json["description"].stringValue
         uri = json["uri"].stringValue
     }
+}
+
+extension Flags: Equatable {}
+
+public func ==(lhs: Flags, rhs: Flags) -> Bool {
+    return lhs.darkskyUnavailable == rhs.darkskyUnavailable && lhs.darkskyStations == rhs.darkskyStations && lhs.dataPointStations == rhs.dataPointStations && lhs.isdStations == rhs.isdStations && lhs.lampStations == rhs.lampStations && lhs.metarStations == rhs.metarStations && lhs.metnoLicense == rhs.metnoLicense && lhs.sources == rhs.sources && lhs.units == rhs.units
 }
 
 public struct Flags {
