@@ -423,7 +423,7 @@ public enum PrecipitationType: String {
     case Hail = "hail"
 }
 
-public enum ForecastBlocks: String, Printable {
+public enum ForecastBlocks: String, CustomStringConvertible {
     case Currently = "currently"
     case Minutely = "minutely"
     case Hourly = "hourly"
@@ -466,13 +466,13 @@ public class ForecastIOClient {
     /**
         Retrieve a forecast from the present, past or future.
     
-        :param: latitude        The latitude of the forecast.
-        :param: longitude       The longitude of the forecast.
-        :param: time            The time for the forecast, can be in the past or future, no time returns the present.
-        :param: extendHourly    Return hourly data for the next seven days instead of the next two.
-        :param: exclude         An array of data blocks to exclude in the response.
-        :param: failure         Closure called when the request fails.
-        :param: success         Closure called when the request succeeds.
+        - parameter latitude:        The latitude of the forecast.
+        - parameter longitude:       The longitude of the forecast.
+        - parameter time:            The time for the forecast, can be in the past or future, no time returns the present.
+        - parameter extendHourly:    Return hourly data for the next seven days instead of the next two.
+        - parameter exclude:         An array of data blocks to exclude in the response.
+        - parameter failure:         Closure called when the request fails.
+        - parameter success:         Closure called when the request succeeds.
     */
     public func forecast(latitude: Double, longitude: Double, time: NSDate? = nil, extendHourly: Bool? = nil, exclude: [ForecastBlocks]? = nil, failure: FailureClosure? = nil, success: SuccessClosure? = nil) {
         if ForecastIOClient.apiKey == nil {
@@ -490,7 +490,7 @@ public class ForecastIOClient {
         
         if exclude != nil {
             var excludeString = ""
-            for (index, block) in enumerate(exclude!) {
+            for (index, block) in (exclude!).enumerate() {
                 excludeString += block.rawValue
                 excludeString += ((index + 1) != exclude!.count) ? "," : ""
             }
@@ -500,8 +500,8 @@ public class ForecastIOClient {
         var path: String = "/forecast/\(ForecastIOClient.apiKey!)/\(latitude),\(longitude)"
         
         if (time != nil) {
-            var dateString: String = dateFormatter.stringFromDate(time!)
-            var dateComponents: [String] = dateString.componentsSeparatedByString(" ")
+            let dateString: String = dateFormatter.stringFromDate(time!)
+            let dateComponents: [String] = dateString.componentsSeparatedByString(" ")
             if (dateComponents.count == 2) {
                 path += "," + dateComponents.first! + "T" + dateComponents.last!
             }
@@ -519,7 +519,7 @@ public class ForecastIOClient {
             
             success?(forecast: forecast, forecastAPICalls: forecastAPICalls)
             }) { (sessionDataTask, error) -> Void in
-                println(error.localizedDescription)
+                print(error.localizedDescription)
                 failure?(error: error)
         }
     }
