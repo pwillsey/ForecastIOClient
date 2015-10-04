@@ -1,8 +1,7 @@
 //
 //  ForecastIOClientTests.swift
-//  8BitWeather
+//  ForecastIOClient
 //
-//  Created by Peter Willsey on 8/11/15.
 //  Copyright (c) 2015 Peter Willsey
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
