@@ -24,13 +24,6 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "ForecastIOClient"
 ```
-### Carthage
-
-To install add the following line to your Cartfile:
-
-```
-github "pwillsey/ForecastIOClient"
-```
 
 ## Configuration
 
