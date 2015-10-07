@@ -24,7 +24,7 @@
 //
 
 import Foundation
-import AFNetworking
+import Alamofire
 import SwiftyJSON
 
 private func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
@@ -450,11 +450,10 @@ public class ForecastIOClient {
     /// The language to return forecasts in.
     public static var lang: String = "en"
     
-    private static let baseURL: String = "https://api.forecast.io"
-    private static let sessionManager: AFHTTPSessionManager = AFHTTPSessionManager(baseURL: NSURL(string: baseURL))
+    private let baseURL: String = "https://api.forecast.io"
     
     public typealias SuccessClosure = (forecast: Forecast, forecastAPICalls: Int?) -> Void
-    public typealias FailureClosure = (error: NSError) -> Void
+    public typealias FailureClosure = (error: NSError?) -> Void
     
     private let dateFormatter: NSDateFormatter = NSDateFormatter()
     
@@ -506,20 +505,22 @@ public class ForecastIOClient {
             }
         }
         
-        ForecastIOClient.sessionManager.GET(path, parameters: parameters, success: { (sessionDataTask, responseObject) -> Void in
+        Alamofire.request(.GET, baseURL + path, parameters: parameters).responseJSON { request, response, result in
             var forecastAPICalls: Int? = nil
-            if let response: NSHTTPURLResponse = sessionDataTask.response as? NSHTTPURLResponse {
-                if let forecastAPICallsString = response.allHeaderFields["X-Forecast-API-Calls"] as? NSString {
-                    forecastAPICalls = forecastAPICallsString.integerValue
-                }
+            if let forecastAPICallsString = response?.allHeaderFields["X-Forecast-API-Calls"] as? NSString {
+                forecastAPICalls = forecastAPICallsString.integerValue
             }
             
-            let forecast: Forecast = Forecast(json: JSON(responseObject))
+            if result.isSuccess {
+                if let resultJSON = result.value {
+                    let forecast: Forecast = Forecast(json: JSON(resultJSON))
+                    success?(forecast: forecast, forecastAPICalls: forecastAPICalls)
+                    return
+                }
+            }
+            let error: NSError? = result.error as? NSError
             
-            success?(forecast: forecast, forecastAPICalls: forecastAPICalls)
-            }) { (sessionDataTask, error) -> Void in
-                print(error.localizedDescription)
-                failure?(error: error)
+            failure?(error: error)
         }
     }
 }

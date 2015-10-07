@@ -45,10 +45,11 @@ class ViewController: UIViewController {
         
         // Retrieve current forecast
         ForecastIOClient.sharedInstance.forecast(-75.6046300, longitude: -26.2090000, failure: { (error) in
-            let alert: UIAlertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+            let errorDescription = error?.localizedDescription ??  "An Error occurred retrieving weather"
+            let alert: UIAlertController = UIAlertController(title: "Error", message: errorDescription, preferredStyle: UIAlertControllerStyle.Alert)
             let alertAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
             alert.addAction(alertAction)
-            self.presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
             }) { (forecast, forecastAPICalls) -> Void in
                 if let numberOfAPICalls: Int = forecastAPICalls {
                     print("\(numberOfAPICalls) forecastIO API calls made today!")

@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
     'ForecastIOClient' => ['Pod/Assets/*.png']
   }
 
-  s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'Alamofire'
   s.dependency 'SwiftyJSON'
 end
