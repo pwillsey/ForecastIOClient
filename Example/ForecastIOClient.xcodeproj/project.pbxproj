@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D5A05721BC56302002E5156 /* ForecastIOClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D5A05711BC56302002E5156 /* ForecastIOClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D5A05771BC56316002E5156 /* ForecastIOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A05681BC562E6002E5156 /* ForecastIOClient.swift */; settings = {ASSET_TAGS = (); }; };
+		3D5A057A1BC5685F002E5156 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D5A05791BC5685F002E5156 /* Alamofire.framework */; settings = {ASSET_TAGS = (); }; };
 		4AE4096750F749938631F1B3 /* Pods_ForecastIOClient_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248480C82F89314FF1D7EB2D /* Pods_ForecastIOClient_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -36,6 +37,7 @@
 		3D5A056F1BC56302002E5156 /* ForecastIOClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ForecastIOClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D5A05711BC56302002E5156 /* ForecastIOClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastIOClient.h; sourceTree = "<group>"; };
 		3D5A05731BC56302002E5156 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D5A05791BC5685F002E5156 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		4CF0CFB7C4873F2416F57C52 /* ForecastIOClient.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ForecastIOClient.podspec; path = ../ForecastIOClient.podspec; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* ForecastIOClient_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ForecastIOClient_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D5A057A1BC5685F002E5156 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +97,7 @@
 		4954DF1A452E9B213D4CD4C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D5A05791BC5685F002E5156 /* Alamofire.framework */,
 				248480C82F89314FF1D7EB2D /* Pods_ForecastIOClient_Example.framework */,
 				F387830C9B49F8832D5CAD7B /* Pods_ForecastIOClient_Tests.framework */,
 			);
@@ -485,6 +489,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ForecastIOClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -506,6 +514,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ForecastIOClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
