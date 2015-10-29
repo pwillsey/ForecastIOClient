@@ -24,8 +24,6 @@
 //
 
 import Foundation
-import AFNetworking
-import SwiftyJSON
 
 private func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
     switch (lhs, rhs) {
