@@ -1,43 +1,39 @@
 PODS:
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection (= 2.6.0)
-    - AFNetworking/NSURLSession (= 2.6.0)
-    - AFNetworking/Reachability (= 2.6.0)
-    - AFNetworking/Security (= 2.6.0)
-    - AFNetworking/Serialization (= 2.6.0)
-    - AFNetworking/UIKit (= 2.6.0)
-  - AFNetworking/NSURLConnection (2.6.0):
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
-    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - ForecastIOClient (0.1.0):
-    - AFNetworking (~> 2.3)
+  - ForecastIOClient (0.2.0):
+    - AFNetworking
     - SwiftyJSON
-  - Nimble (2.0.0-rc.3)
-  - SwiftyJSON (2.3.0)
+  - Nimble (5.0.0)
+  - SwiftyJSON (3.1.0)
 
 DEPENDENCIES:
   - ForecastIOClient (from `../`)
-  - Nimble (= 2.0.0-rc.3)
+  - Nimble
 
 EXTERNAL SOURCES:
   ForecastIOClient:
     :path: ../
 
 SPEC CHECKSUMS:
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
-  ForecastIOClient: 062a3a042078a34e57f3f348af655587e39c902b
-  Nimble: 9dff98ee195ffe7351d3b2fb01d3a1420fd97948
-  SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  ForecastIOClient: 0f677c673925ae640a0843190bd3bf6ef3b5df27
+  Nimble: 56fc9f5020effa2206de22c3dd910f4fb011b92f
+  SwiftyJSON: 29b9f2a64f118c07e691667c2ba1efe536acfe0b
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: 3bd6939fb54b6488d900de03833528aaa26fcd76
+
+COCOAPODS: 1.1.0.rc.2

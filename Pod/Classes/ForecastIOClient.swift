@@ -29,9 +29,9 @@ import SwiftyJSON
 
 private func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
     switch (lhs, rhs) {
-    case (.Some(let lhs), .Some(let rhs)):
+    case (.some(let lhs), .some(let rhs)):
         return lhs == rhs
-    case (.None, .None):
+    case (.none, .none):
         return true
     default:
         return false
@@ -438,27 +438,27 @@ public enum ForecastBlocks: String, CustomStringConvertible {
 /**
     A singleton that retrieves forecasts from forecast.io
 */
-public class ForecastIOClient {
-    public static let sharedInstance: ForecastIOClient = ForecastIOClient()
+open class ForecastIOClient {
+    open static let sharedInstance: ForecastIOClient = ForecastIOClient()
     
     /// The forecast.io API key to use.
-    public static var apiKey: String?
+    open static var apiKey: String?
     
     /// The units that will be returned in forecasts.
-    public static var units: Units = .Us
+    open static var units: Units = .Us
     
     /// The language to return forecasts in.
-    public static var lang: String = "en"
+    open static var lang: String = "en"
     
-    private static let baseURL: String = "https://api.forecast.io"
-    private static let sessionManager: AFHTTPSessionManager = AFHTTPSessionManager(baseURL: NSURL(string: baseURL))
+    fileprivate static let baseURL: String = "https://api.forecast.io"
+    fileprivate static let sessionManager: AFHTTPSessionManager = AFHTTPSessionManager(baseURL: URL(string: baseURL))
     
-    public typealias SuccessClosure = (forecast: Forecast, forecastAPICalls: Int?) -> Void
-    public typealias FailureClosure = (error: NSError) -> Void
+    public typealias SuccessClosure = (_ forecast: Forecast, _ forecastAPICalls: Int?) -> Void
+    public typealias FailureClosure = (_ error: NSError) -> Void
     
-    private let dateFormatter: NSDateFormatter = NSDateFormatter()
+    fileprivate let dateFormatter: DateFormatter = DateFormatter()
     
-    private init() {
+    fileprivate init() {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
     }
     
@@ -473,7 +473,7 @@ public class ForecastIOClient {
         - parameter failure:         Closure called when the request fails.
         - parameter success:         Closure called when the request succeeds.
     */
-    public func forecast(latitude: Double, longitude: Double, time: NSDate? = nil, extendHourly: Bool? = nil, exclude: [ForecastBlocks]? = nil, failure: FailureClosure? = nil, success: SuccessClosure? = nil) {
+    open func forecast(_ latitude: Double, longitude: Double, time: Date? = nil, extendHourly: Bool? = nil, exclude: [ForecastBlocks]? = nil, failure: FailureClosure? = nil, success: SuccessClosure? = nil) {
         if ForecastIOClient.apiKey == nil {
             fatalError("Forecast.IO API key not set!")
         }
@@ -489,7 +489,7 @@ public class ForecastIOClient {
         
         if exclude != nil {
             var excludeString = ""
-            for (index, block) in (exclude!).enumerate() {
+            for (index, block) in (exclude!).enumerated() {
                 excludeString += block.rawValue
                 excludeString += ((index + 1) != exclude!.count) ? "," : ""
             }
@@ -499,16 +499,16 @@ public class ForecastIOClient {
         var path: String = "/forecast/\(ForecastIOClient.apiKey!)/\(latitude),\(longitude)"
         
         if (time != nil) {
-            let dateString: String = dateFormatter.stringFromDate(time!)
-            let dateComponents: [String] = dateString.componentsSeparatedByString(" ")
+            let dateString: String = dateFormatter.string(from: time!)
+            let dateComponents: [String] = dateString.components(separatedBy: " ")
             if (dateComponents.count == 2) {
                 path += "," + dateComponents.first! + "T" + dateComponents.last!
             }
         }
         
-        ForecastIOClient.sessionManager.GET(path, parameters: parameters, success: { (sessionDataTask, responseObject) -> Void in
+        ForecastIOClient.sessionManager.get(path, parameters: parameters, success: { (sessionDataTask, responseObject) -> Void in
             var forecastAPICalls: Int? = nil
-            if let response: NSHTTPURLResponse = sessionDataTask.response as? NSHTTPURLResponse {
+            if let response: HTTPURLResponse = sessionDataTask.response as? HTTPURLResponse {
                 if let forecastAPICallsString = response.allHeaderFields["X-Forecast-API-Calls"] as? NSString {
                     forecastAPICalls = forecastAPICallsString.integerValue
                 }
@@ -516,10 +516,10 @@ public class ForecastIOClient {
             
             let forecast: Forecast = Forecast(json: JSON(responseObject))
             
-            success?(forecast: forecast, forecastAPICalls: forecastAPICalls)
+            success?(forecast, forecastAPICalls)
             }) { (sessionDataTask, error) -> Void in
                 print(error.localizedDescription)
-                failure?(error: error)
+                failure?(error as NSError)
         }
     }
 }

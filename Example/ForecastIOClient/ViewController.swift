@@ -40,15 +40,15 @@ class ViewController: UIViewController {
         ForecastIOClient.units = Units.Us
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Retrieve current forecast
         ForecastIOClient.sharedInstance.forecast(-75.6046300, longitude: -26.2090000, failure: { (error) in
-            let alert: UIAlertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-            let alertAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+            let alert: UIAlertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+            let alertAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(alertAction)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
             }) { (forecast, forecastAPICalls) -> Void in
                 if let numberOfAPICalls: Int = forecastAPICalls {
                     print("\(numberOfAPICalls) forecastIO API calls made today!")
@@ -67,9 +67,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func forecastIOButtonTapped(sender: AnyObject) {
-        let forecastIOURL: NSURL = NSURL(string: "http://www.forecast.io")!
-        UIApplication.sharedApplication().openURL(forecastIOURL)
+    @IBAction func forecastIOButtonTapped(_ sender: AnyObject) {
+        let forecastIOURL: URL = URL(string: "http://www.forecast.io")!
+        UIApplication.shared.openURL(forecastIOURL)
     }
 }
 

@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'ForecastIOClient_Example', :exclusive => true do
+target 'ForecastIOClient_Example' do
   pod "ForecastIOClient", :path => "../"
 end
 
-target 'ForecastIOClient_Tests', :exclusive => true do
+target 'ForecastIOClient_Tests' do
   pod "ForecastIOClient", :path => "../"
-  pod "Nimble", "2.0.0-rc.3" 
+  pod "Nimble" 
 end

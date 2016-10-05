@@ -307,19 +307,19 @@ class ForecastIOClientTests: XCTestCase {
         expect(flags.units).to(equal(Units.Ca))
     }
     
-    private func dataBlockValid(dataBlock: DataBlock?) -> Bool {
+    fileprivate func dataBlockValid(_ dataBlock: DataBlock?) -> Bool {
         return dataBlock?.summary != nil || dataBlock?.icon != nil || dataBlock?.data != nil
     }
     
-    private func dataPointValid(dataPoint: DataPoint?) -> Bool {
-        return dataPoint?.time > 0 || dataPoint?.summary != nil || dataPoint?.icon != nil || dataPoint?.sunriseTime != nil || dataPoint?.sunsetTime != nil || dataPoint?.moonPhase != nil || dataPoint?.nearestStormDistance != nil || dataPoint?.nearestStormBearing != nil || dataPoint?.precipProbability != nil || dataPoint?.precipType != nil || dataPoint?.precipAccumulation != nil || dataPoint?.temperature != nil || dataPoint?.temperatureMin != nil || dataPoint?.temperatureMinTime != nil || dataPoint?.temperatureMax != nil || dataPoint?.temperatureMaxTime != nil || dataPoint?.apparentTemperature != nil || dataPoint?.apparentTemperatureMin != nil || dataPoint?.apparentTemperatureMinTime != nil || dataPoint?.apparentTemperatureMax != nil || dataPoint?.apparentTemperatureMaxTime != nil || dataPoint?.dewPoint != nil || dataPoint?.windSpeed != nil || dataPoint?.windBearing != nil || dataPoint?.cloudCover != nil || dataPoint?.humidity != nil || dataPoint?.pressure != nil || dataPoint?.visibility != nil || dataPoint?.ozone != nil
+    fileprivate func dataPointValid(_ dataPoint: DataPoint?) -> Bool {
+        return dataPoint!.time > 0 || dataPoint?.summary != nil || dataPoint?.icon != nil || dataPoint?.sunriseTime != nil || dataPoint?.sunsetTime != nil || dataPoint?.moonPhase != nil || dataPoint?.nearestStormDistance != nil || dataPoint?.nearestStormBearing != nil || dataPoint?.precipProbability != nil || dataPoint?.precipType != nil || dataPoint?.precipAccumulation != nil || dataPoint?.temperature != nil || dataPoint?.temperatureMin != nil || dataPoint?.temperatureMinTime != nil || dataPoint?.temperatureMax != nil || dataPoint?.temperatureMaxTime != nil || dataPoint?.apparentTemperature != nil || dataPoint?.apparentTemperatureMin != nil || dataPoint?.apparentTemperatureMinTime != nil || dataPoint?.apparentTemperatureMax != nil || dataPoint?.apparentTemperatureMaxTime != nil || dataPoint?.dewPoint != nil || dataPoint?.windSpeed != nil || dataPoint?.windBearing != nil || dataPoint?.cloudCover != nil || dataPoint?.humidity != nil || dataPoint?.pressure != nil || dataPoint?.visibility != nil || dataPoint?.ozone != nil
     }
     
-    private func alertValid(alert: Alert) -> Bool {
+    fileprivate func alertValid(_ alert: Alert) -> Bool {
         return alert.title != "" || alert.expires != 0 || alert.description != "" || alert.uri != ""
     }
     
-    private func flagsValid(flags: Flags?) -> Bool {
+    fileprivate func flagsValid(_ flags: Flags?) -> Bool {
         return flags?.sources != nil || flags?.isdStations != nil || flags?.lampStations != nil || flags?.darkskyStations != nil || flags?.darkskyUnavailable != nil || flags?.metnoLicense != nil || flags?.metarStations != nil || flags?.units != nil
     }
 }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ForecastIOClient"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "A Swift forecast.io API client."
   s.homepage         = "https://github.com/pwillsey/ForecastIOClient"
   s.license          = 'MIT'
@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
     'ForecastIOClient' => ['Pod/Assets/*.png']
   }
 
-  s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'AFNetworking'
   s.dependency 'SwiftyJSON'
 end
