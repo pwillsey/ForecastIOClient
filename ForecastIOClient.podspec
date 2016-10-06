@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ForecastIOClient"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "A Swift forecast.io API client."
   s.homepage         = "https://github.com/pwillsey/ForecastIOClient"
   s.license          = 'MIT'
