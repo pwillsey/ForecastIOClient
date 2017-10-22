@@ -439,6 +439,11 @@ public enum ForecastBlocks: String, CustomStringConvertible {
     A singleton that retrieves forecasts from forecast.io
 */
 open class ForecastIOClient {
+    
+    enum ForecastIOError: Error {
+        case invalidResponse
+    }
+    
     open static let sharedInstance: ForecastIOClient = ForecastIOClient()
     
     /// The forecast.io API key to use.
@@ -454,7 +459,7 @@ open class ForecastIOClient {
     fileprivate static let sessionManager: AFHTTPSessionManager = AFHTTPSessionManager(baseURL: URL(string: baseURL))
     
     public typealias SuccessClosure = (_ forecast: Forecast, _ forecastAPICalls: Int?) -> Void
-    public typealias FailureClosure = (_ error: NSError) -> Void
+    public typealias FailureClosure = (_ error: Error) -> Void
     
     fileprivate let dateFormatter: DateFormatter = DateFormatter()
     
@@ -514,12 +519,16 @@ open class ForecastIOClient {
                 }
             }
             
-            let forecast: Forecast = Forecast(json: JSON(responseObject))
+            if let responseObject = responseObject {
+                let forecast: Forecast = Forecast(json: JSON(responseObject))
+                success?(forecast, forecastAPICalls)
+            } else {
+                failure?(ForecastIOError.invalidResponse)
+            }
             
-            success?(forecast, forecastAPICalls)
             }) { (sessionDataTask, error) -> Void in
                 print(error.localizedDescription)
-                failure?(error as NSError)
+                failure?(error)
         }
     }
 }
