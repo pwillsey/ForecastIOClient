@@ -14,11 +14,11 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - ForecastIOClient (0.2.0):
+  - ForecastIOClient (0.2.1):
     - AFNetworking
     - SwiftyJSON
-  - Nimble (5.0.0)
-  - SwiftyJSON (3.1.0)
+  - Nimble (7.0.2)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - ForecastIOClient (from `../`)
@@ -30,10 +30,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  ForecastIOClient: f8b1499efd71ae235dec2ea55a2190b4f77d9996
-  Nimble: 56fc9f5020effa2206de22c3dd910f4fb011b92f
-  SwiftyJSON: 29b9f2a64f118c07e691667c2ba1efe536acfe0b
+  ForecastIOClient: b1c9d63382ffc816bcbe391c4c9815ecc0c5df03
+  Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 3bd6939fb54b6488d900de03833528aaa26fcd76
+PODFILE CHECKSUM: e16d98ca872f5408f6927c52e30aa6ba11291105
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.3.1
