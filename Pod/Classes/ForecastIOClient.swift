@@ -444,16 +444,16 @@ open class ForecastIOClient {
         case invalidResponse
     }
     
-    open static let sharedInstance: ForecastIOClient = ForecastIOClient()
+    public static let sharedInstance: ForecastIOClient = ForecastIOClient()
     
     /// The forecast.io API key to use.
-    open static var apiKey: String?
+    public static var apiKey: String?
     
     /// The units that will be returned in forecasts.
-    open static var units: Units = .Us
+    public static var units: Units = .Us
     
     /// The language to return forecasts in.
-    open static var lang: String = "en"
+    public static var lang: String = "en"
     
     fileprivate static let baseURL: String = "https://api.forecast.io"
     fileprivate static let sessionManager: AFHTTPSessionManager = AFHTTPSessionManager(baseURL: URL(string: baseURL))
