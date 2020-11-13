@@ -511,7 +511,7 @@ open class ForecastIOClient {
             }
         }
         
-        ForecastIOClient.sessionManager.get(path, parameters: parameters, progress: nil, success: { (sessionDataTask, responseObject) -> Void in
+        ForecastIOClient.sessionManager.get(path, parameters: parameters, headers: nil, progress: nil, success: { (sessionDataTask, responseObject) -> Void in
             var forecastAPICalls: Int? = nil
             if let response: HTTPURLResponse = sessionDataTask.response as? HTTPURLResponse {
                 if let forecastAPICallsString = response.allHeaderFields["X-Forecast-API-Calls"] as? NSString {
